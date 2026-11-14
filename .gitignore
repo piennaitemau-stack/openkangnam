@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.idea/
+.vscode/
+*.iml
+
+# Android build outputs (keep the copied APK in /release)
+android/.gradle/
+android/build/
+android/app/build/
+android/app/.cxx/
+android/captures/
+android/local.properties
+android/.idea/
+
+# Generated debug keystore stays local
+*.jks
+*.keystore
+!android/app/debug.keystore

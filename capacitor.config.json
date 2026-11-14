@@ -1,0 +1,9 @@
+{
+  "appId": "com.openkangnam.tetsudou",
+  "appName": "てつどううんてん",
+  "webDir": "dist",
+  "android": {
+    "allowMixedContent": true,
+    "backgroundColor": "#0f172a"
+  }
+}
