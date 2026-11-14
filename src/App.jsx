@@ -856,23 +856,32 @@ function Confetti({ count = 50 }) {
 // おしている あいだ ずっと はんのうする ボタン
 function HoldButton({ onDown, onUp, className, pressedClass, children }) {
   const [on, setOn] = useState(false);
-  const down = (e) => {
-    e.preventDefault();
-    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
+  const holding = useRef(false);
+  const start = (e) => {
+    if (e && e.cancelable) e.preventDefault();
+    if (holding.current) return;
+    holding.current = true;
     setOn(true);
     if (onDown) onDown();
   };
-  const up = () => {
+  const end = () => {
+    if (!holding.current) return;
+    holding.current = false;
     setOn(false);
     if (onUp) onUp();
   };
   return (
     <button
       type="button"
-      onPointerDown={down}
-      onPointerUp={up}
-      onPointerCancel={up}
-      onLostPointerCapture={up}
+      onPointerDown={start}
+      onPointerUp={end}
+      onPointerCancel={end}
+      onMouseDown={start}
+      onMouseUp={end}
+      onMouseLeave={end}
+      onTouchStart={start}
+      onTouchEnd={end}
+      onTouchCancel={end}
       onContextMenu={(e) => e.preventDefault()}
       className={`${className} ${on ? pressedClass : ""} select-none transition-transform duration-75`}
       style={{ touchAction: "none", WebkitTapHighlightColor: "transparent" }}
